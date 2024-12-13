@@ -1,0 +1,117 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <script src="js/contacts_script.js"></script>
+    <script src="js/board_script.js"></script>
+    <script src="js/addTask_script.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/register.js"></script>
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/bigJoinLogo.svg">
+    <title>Join | Add Task</title>
+</head>
+
+<body onload="initializeAddTaskSite()">
+
+    <div w3-include-html="assets/templates/desktop_template.html"></div>
+    <div class="dflex-except-mobile ">
+        <div w3-include-html="assets/templates/desktop_side_template.html" class="navbar-add-task-none"></div>
+        <div w3-include-html="assets/templates/header_add_task_mobile_template.html" class="navbar-add-task "></div>
+        <form class="add-task-container" onsubmit="addTaskFromAddTaskSite()">
+            <div class="add-task-heading-wrapper">
+                <p class="mobile-view-only">Kanban Project Management Tool</p>
+                <h1 class="add-task-heading headlines">Add Task</h1>
+            </div>
+            <div class="add-task-content">
+                <div class="add-task-half">
+                    <div class="add-task-input-container">
+                        <p>Title</p>
+                        <div class="input-field">
+                            <input type="text" placeholder="Enter a title" id="addTaskTitle" required>
+                        </div>
+                    </div>
+                    <div class="add-task-input-container">
+                        <p>Description</p>
+                        <div class="text-area-field">
+                            <textarea name="" cols="30" rows="4" placeholder="Enter a Description"
+                                id="addTaskDescription" required></textarea>
+                        </div>
+                    </div>
+                    <div class="add-task-input-container">
+                        <p>Category</p>
+                        <div class="input-field">
+                            <select name="add-task-category-select" class="select-category pointer" id="addTaskCategory"
+                                required>
+                                <option value="0">Select task Category</option>
+                                <option value="Design">Design</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Backoffice">Backoffice</option>
+                                <option value="Media">Media</option>
+                                <option value="Marketing">Marketing</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="add-task-input-container dflex-col gap20">
+                        <p>Assigned to</p>
+                        <div class="input-field">
+                            <select name="add-task-contact-select" id="addTaskSelection_site"
+                                class="select-category pointer" oninput="addMemberToTask('site')" required>
+                                <option value="0">Select contacts to assign </option>
+                            </select>
+                        </div>
+                        <div class="add-task-assigned-members dflex gap10" id="addTaskAssignedMembers_site">
+                        </div>
+                    </div>
+                </div>
+                <span class="vertical-line"></span>
+                <!-- TRENNUNG!!! -->
+                <div class="add-task-half">
+                    <div class="add-task-input-container">
+                        <p>Due Date</p>
+                        <div class="input-field date-input">
+                            <input type="date" placeholder="dd-mm-yyyy" class="pointer" id="dueDateInput_addTaskSite"
+                                required>
+                        </div>
+                    </div>
+                    <div class="select-prio">
+                        <p>Prio</p>
+                        <div class="dflex gap10 prio-button-container">
+                            <div class="prio-container pointer" id="prioButton_urgent" onclick="selectPrio('urgent')">
+                                <div class="prio-text">Urgent</div>
+                                <img src="assets/img/priorityUrgent.png" alt="">
+                            </div>
+                            <div class="prio-container pointer" id="prioButton_medium" onclick="selectPrio('medium')">
+                                <div class="prio-text">Medium</div>
+                                <img src="assets/img/priorityMedium.png" alt="">
+                            </div>
+                            <div class="prio-container pointer selected-prio-container" id="prioButton_low"
+                                onclick="selectPrio('low')">
+                                <div class="prio-text">Low</div>
+                                <img src="assets/img/priorityLow.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-task-input-container">
+                        <p>Subtasks</p>
+                        <div class="input-field">
+                            <input type="text" placeholder="Add new subtask" id="subTaskInput_site">
+                            <img src="assets/img/plusbutton.png" alt="" class="pointer" onclick="addSubTask('site')">
+                        </div>
+                        <div class="dflex-col" id="subTaskPreviewContainer_site">
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button class="login-btn clear-btn" onclick="window.open('board.html', '_self')">Clear X</button>
+                    <button type="submit" class="login-btn add-task-btn">Add Task <img src="assets/img/plusbutton.png"
+                            alt=""></button>
+                </div>
+        </form>
+    </div>
+    <div class="confirm-add-task-banner" id="addTaskConfirmation">Task added!</div>
+    <div w3-include-html="assets/templates/navbar_mobile_template.html" class="navbar-mobile"></div>
+    </div>
+</body>

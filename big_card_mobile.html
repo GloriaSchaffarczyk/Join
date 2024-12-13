@@ -1,0 +1,53 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <script src="js/contacts_script.js"></script>
+    <script src="js/board_script.js"></script>
+    <script src="js/addTask_script.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/register.js"></script>
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/bigJoinLogo.svg">
+    <title>Join | Card</title>
+</head>
+
+<body onload="initializeBigCardMobile()">
+
+    <div w3-include-html="assets/templates/desktop_template.html" class="navbar-board-top"></div>
+    <body>
+        <div class="big-card-container-mobile">
+            <button class="big-card-close-button pointer" onclick="closeBigCard()"> <img src="assets/img/backArrow.png"
+                    alt=""></button>
+            <span class="small-card-category" id="bigCardCategoryMobile" style="background-color: var(--sales-color)">
+                Sales</span>
+            <h1 class="headlines" id="bigCardTitel">Call potential clients</h1>
+            <p id="bigCardDescription">Make the product presentation to prospective buyers</p>
+            <div class="dflex align-center gap20">
+                <p class="bold">Due date:</p>
+                <p id="bigCardDueDate">05-08-2022</p>
+            </div>
+            <div class=" dflex align-center gap20" id="bigCardPrio">
+                <p class="bold">Priority:</p>
+                <div class="prio-container dflex align-center pointer">
+                    Urgent
+                    <img src="assets/img/priorityUrgent.png">
+                </div>
+            </div>
+            <div class="assigned-to-field" id="assignedToFieldMobile">
+                <p class="bold">Assigned To:</p>
+            </div>
+            <div id="subTaskPreviewContainer_edit_mobile" class="padding-bt80">
+            </div>
+            <div class="big-card-button-container-mobile">
+                <button class="pointer delete-button" onclick=""><img src="assets/img/delete.png" alt=""></button>
+                <button class="pointer edit-button" id="editButtonMobile"><img src="assets/img/pen.png" alt=""></button>
+            </div>
+        </div>
+    </body>
+
+    <div w3-include-html="assets/templates/navbar_mobile_template.html" class="navbar-mobile"></div>
+
+</body>

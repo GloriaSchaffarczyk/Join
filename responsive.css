@@ -1,0 +1,437 @@
+@media(max-width: 1200px) {
+    @keyframes movingJoin {
+        0% {
+          top: 35%;
+          left: 40%;
+          width: 274px;
+          height: 334px;
+          content: url('assets/img/joinlogodark.svg');
+          background-color: transparent;
+        }
+      
+        100% {
+          top: 3.33%;
+          left: 5.35%;
+          width: 100px;
+          height: 122px;
+          content: url('assets/img/joinlogodark.svg');
+          background-color: transparent;
+        }
+      }
+
+      .password-forget {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 35px 0px;
+        gap: 35px;
+        width: 652px;
+        height: 513px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #ffffff;
+        box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+        border-radius: 30px;
+        opacity: 0%;
+        animation-name: opacity-login;
+        animation-duration: 500ms;
+        animation-delay: 225ms;
+        animation-fill-mode: forwards;
+        padding-left: 50px;
+    }
+}
+
+@media(max-width: 1000px) {
+    .responsive-fullscreen-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        top: 5%;
+        left: 40%;
+        z-index: 500;
+        background-color: #f6f7f8;
+        animation-name: movingJoin;
+        animation-duration: 750ms;
+        animation-delay: 225ms;
+        animation-fill-mode: forwards;
+    }
+
+    .password-forget {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 35px 0px;
+        gap: 35px;
+        width: 652px;
+        height: 513px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #ffffff;
+        box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+        border-radius: 30px;
+        opacity: 0%;
+        animation-name: opacity-login;
+        animation-duration: 500ms;
+        animation-delay: 225ms;
+        animation-fill-mode: forwards;
+        padding-left: 50px;
+    }
+
+    @keyframes movingJoin {
+        0% {
+          top: 35%;
+          left: 40%;
+          width: 274px;
+          height: 334px;
+          content: url('assets/img/joinlogobright.svg');
+          background-color: transparent;
+        }
+      
+        100% {
+          top: 3.33%;
+          left: 5.35%;
+          width: 100px;
+          height: 122px;
+          content: url('assets/img/joinlogodark.svg');
+          background-color: transparent;
+        }
+      }
+
+    .login-section {
+        scale: 0.85;
+        overflow: hidden;
+    }
+
+    .progress-bar p{
+        white-space: nowrap;
+    }
+}
+
+@media(max-width: 600px) {
+    .responsive-fullscreen-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        z-index: 500;
+        background-color: #f6f7f8;
+        animation-name: none;
+        animation-duration: 750ms;
+        animation-fill-mode: forwards;
+        padding: 0px;
+        gap: 10px;
+
+        position: absolute;
+        width: 100px;
+        height: 120px;
+        left: 40%;
+        top: 40%;
+    }
+
+    .login-section {
+        scale: 1;
+        overflow: visible;
+    }
+
+    @media(max-height: 844px) {
+        .login-section {
+            scale: 1;
+        }
+    }
+
+    @media(max-height: 675px) {
+        .login-section {
+            scale: 1;
+            overflow: visible;
+        }
+    }
+
+    .login-signup {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-right: 0px;
+        padding-top: 0px;
+        gap: 35px;
+        position: absolute !important;
+        left: 82px;
+        top: 800px;
+        padding-bottom: 30px;
+        animation-name: opacity-login;
+        animation-duration: 500ms;
+        animation-delay: 1225ms;
+        animation-fill-mode: forwards;
+    }
+
+    .responsive-login-bars {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: translate(-50%, -50%);
+        background: #ffffff;
+        box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+        border-radius: 30px;
+        opacity: 0%;
+        animation-name: opacity-login;
+        animation-duration: 500ms;
+        animation-delay: 1225ms;
+        animation-fill-mode: forwards;
+        position: absolute;
+        width: 350px;
+        top: 485px;
+    }
+
+    .responsive-login-bar {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 13px 21px;
+        gap: 10px;
+        width: 325px;
+        height: 51px;
+        background: #ffffff;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        font-family: "Inter";
+        font-size: 21px;
+        cursor: pointer;
+    }
+
+    .login-remember {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        font-family: "Inter";
+        font-weight: 400;
+        font-size: 16px;
+        color: #000000;
+        margin-top: 20px;
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+
+    .responsive-btn {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login-btn {
+        width: 180px;
+        height: 51px;
+        font-size: 16px;
+    }
+
+    .remember-checkbox {
+        gap: 15px;
+    }
+
+    .sendemail {
+        position: fixed;
+        top: 120%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        width: 250px;
+        height: 250px;
+    }
+
+    .login-head-borderline {
+        min-height: 100px;
+        border: 1px solid #29abe2;
+        transform: rotate(90deg);
+        margin-top: -65px;
+        border-radius: 10px;
+    }
+
+    .bg-email {
+        background-image: url("assets/img/emailImg.svg");
+        background-repeat: no-repeat;
+        background-position: 280px;
+    }
+
+    .bg-password {
+        background-image: url("assets/img/passwordImg.svg");
+        background-repeat: no-repeat;
+        background-position: 280px;
+    }
+
+    .leftarrow {
+        position: absolute;
+        left: 6%;
+        top: 3%;
+        width: 18px;
+        height: 18px;
+        filter: brightness(0);
+    }
+
+    .bg-name {
+        background-image: url("assets/img/nameImg.svg");
+        background-repeat: no-repeat;
+        background-position: 280px;
+    }
+
+    .password-forget {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: translate(-50%, -50%);
+        background: #ffffff;
+        box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+        border-radius: 30px;
+        opacity: 0%;
+        animation-name: opacity-login;
+        animation-duration: 500ms;
+        animation-delay: 225ms;
+        animation-fill-mode: forwards;
+        position: absolute;
+        width: 350px;
+        top: 485px;
+        left: 50%;
+        padding-left: 0px;
+    }
+
+    .forgot-headlines {
+        font-size: 37px;
+    }
+
+    .text-width-bar {
+        width: 245px;
+    }
+    
+    .forgot-btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 4px 0px;
+        width: 250px;
+        height: 51px;
+        background: #2a3647;
+        border-radius: 8px;
+        font-family: "Inter";
+        font-weight: 700;
+        font-size: 16px;
+        color: #ffffff;
+        cursor: pointer;
+    }
+
+    .font-size-37 {
+        font-size: 37px;
+    }
+
+    .font-size-16 {
+        font-size: 16px;
+    }
+
+    .password-reset {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: translate(-50%, -50%);
+        background: #ffffff;
+        box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+        border-radius: 30px;
+        opacity: 0%;
+        animation-name: opacity-login;
+        animation-duration: 500ms;
+        animation-delay: 225ms;
+        animation-fill-mode: forwards;
+        position: absolute;
+        width: 350px;
+        top: 485px;
+        padding: 35px 0px;
+        gap: 35px;
+        left: 50%;
+    }
+
+    .login-join-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 64px;
+        height: 78.03px;
+        top: 5%;
+        left: 40%;
+        z-index: 500;
+        background-color: #f6f7f8;
+        animation-name: movingJoin;
+        animation-duration: 750ms;
+        animation-delay: 225ms;
+        animation-fill-mode: forwards;
+        object-fit: scale-down;
+        width: 64px !important;
+        height: 78px !important;
+    }
+
+    .change-password {
+        width: 320px;
+        height: 25px;
+        font-family: "Inter";
+        font-weight: 400;
+        font-size: 19px;
+        color: #000000;
+        padding-bottom: 50px;
+        margin-top: -50px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .login-screen-responsive {
+        animation-name: login-animation;
+        background-color: #2A3647;
+        animation-delay: 1000ms;
+        animation-duration: 1000ms;
+        animation-fill-mode: forwards;
+        height: 100vh;
+    }
+
+    @keyframes login-animation {
+        0% {
+            background-color: #2A3647;
+            opacity: 1;
+        }
+
+        100% {
+            background-color: #ffffff;
+            opacity: 1;
+        }
+    }
+
+    .join-logo-responsive {
+        animation-name: moving-join-responsive;
+        animation-delay: 1000ms;
+        animation-duration: 750ms;
+        animation-fill-mode: forwards;
+        background-color: transparent;
+        content: url('assets/img/joinlogobright.svg');
+    }
+
+    @keyframes moving-join-responsive {
+        0% {
+            left: 40%;
+            top: 40%;
+            width: 100px;
+            height: 120px;
+            content: url('assets/img/joinlogobright.svg');
+        }
+
+        100% {
+            left: 10%;
+            top: 5%;
+            width: 64px;
+            height: 78px;
+            content: url('assets/img/joinlogodark.svg'); 
+            background-color: transparent;
+        }
+    }
+}
