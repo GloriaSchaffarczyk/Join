@@ -2,7 +2,7 @@
  * This function will load templates to your html
  */
 async function includeHTML() {
-    console.log("Loading templates...");
+    // console.log("Loading templates...");
     let includeElements = document.querySelectorAll('[w3-include-html]');
     for (let i = 0; i < includeElements.length; i++) {
         const element = includeElements[i];
@@ -11,7 +11,7 @@ async function includeHTML() {
             let resp = await fetch(file);
             if (resp.ok) {
                 element.innerHTML = await resp.text();
-                console.log(`Loaded template: ${file}`);
+                // console.log(`Loaded template: ${file}`);
             } else {
                 element.innerHTML = 'Page not found';
                 console.error(`Template not found: ${file}`);
@@ -22,9 +22,9 @@ async function includeHTML() {
         }
     }
 
-    console.log("Templates loaded. Updating navbar links...");
+    // console.log("Templates loaded. Updating navbar links...");
     setNavBarLinks(); // Navbar-Links aktualisieren, nachdem alle Templates geladen sind
-    console.log("Navbar links updated.");
+    // console.log("Navbar links updated.");
 }
 
 /**
@@ -106,7 +106,7 @@ function addUrlVariable(id) {
  * @returns {void}
  */
 function setNavBarLinks() {
-    console.log('Setting navbar links...');
+    // console.log('Setting navbar links...');
     try {
         // IDs der Links für Desktop- und Mobile-Ansicht definieren
         const desktopLinks = {
@@ -144,11 +144,11 @@ function setNavBarLinks() {
             if (linkElement) {
                 // Dynamisch den richtigen Dateinamen und User-Parameter setzen
                 linkElement.href = `${pageFiles[key]}?user=${userFromURL()}`;
-                console.log(`${key.charAt(0).toUpperCase() + key.slice(1)} link set to: ${linkElement.href}`);
+                // console.log(`${key.charAt(0).toUpperCase() + key.slice(1)} link set to: ${linkElement.href}`);
             }
         });
 
-        console.log("Navbar links successfully updated.");
+        // console.log("Navbar links successfully updated.");
     } catch (error) {
         console.error("Error in setNavBarLinks:", error);
     }
@@ -156,7 +156,7 @@ function setNavBarLinks() {
 
 // Event Listener für Fenstergrößenänderungen
 window.addEventListener('resize', () => {
-    console.log('Window resized, updating navbar links...');
+    // console.log('Window resized, updating navbar links...');
     setNavBarLinks();
 });
 

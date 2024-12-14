@@ -1,40 +1,43 @@
-let toDoArray = [{
-    category: "design",
-    title: "Website redesign",
-    description: "Modify the contents of the main website...",
-    subtasks: [
-        { title: "testSubTask1", done: true },
-        { title: "testSubTask2", done: false },
-        { title: "testSubTask2", done: false }],
-    priority: "low",
-    contactsInTask: [contacts[0]],
-    status: "to-do",
-    dueDate: "",
-},
-{
-    category: "sales",
-    title: "Call potential clients",
-    description: "Make the product presentation to prospective buyers",
-    subtasks: [],
-    priority: "urgent",
-    contactsInTask: [contacts[0], contacts[1]],
-    status: "in-progress",
-    dueDate: "",
-},
-{
-    category: "backoffice",
-    title: "Accounting invoices",
-    description: "Write open invoices for customer",
-    subtasks: [
-        { title: "testSubTask1", done: true },
-        { title: "testSubTask2", done: true },
-        { title: "testSubTask2", done: false }],
-    priority: "medium",
-    contactsInTask: [contacts[0]],
-    status: "awaiting-feedback",
-    dueDate: "",
-}
-]
+let toDoArray = [
+    {
+        category: "design",
+        title: "Website redesign",
+        description: "Modify the contents of the main website...",
+        subtasks: [
+            { title: "testSubTask1", done: true },
+            { title: "testSubTask2", done: false },
+            { title: "testSubTask2", done: false }
+        ],
+        priority: "low",
+        contactsInTask: contacts.length > 0 ? [contacts[0]] : [], // Prüfen, ob Kontakte verfügbar sind
+        status: "to-do",
+        dueDate: "",
+    },
+    {
+        category: "sales",
+        title: "Call potential clients",
+        description: "Make the product presentation to prospective buyers",
+        subtasks: [],
+        priority: "urgent",
+        contactsInTask: contacts.length > 1 ? [contacts[0], contacts[1]] : [], // Mehrere Kontakte prüfen
+        status: "in-progress",
+        dueDate: "",
+    },
+    {
+        category: "backoffice",
+        title: "Accounting invoices",
+        description: "Write open invoices for customer",
+        subtasks: [
+            { title: "testSubTask1", done: true },
+            { title: "testSubTask2", done: true },
+            { title: "testSubTask2", done: false }
+        ],
+        priority: "medium",
+        contactsInTask: contacts.length > 0 ? [contacts[0]] : [], // Prüfen, ob Kontakte verfügbar sind
+        status: "awaiting-feedback",
+        dueDate: "",
+    }
+];
 
 let pinSpaceArray = [
     "pinSpace-ToDo",
@@ -384,7 +387,8 @@ function assignedToContentBigCardHTML(toDoIndex) {
  * @returns {string} - The HTML code for the contact.
  */
 function bigCardContactHTML(toDoIndex, contactIndex) {
-    let contact = toDoArray[toDoIndex].contactsInTask[contactIndex];
+    const contact = toDoArray[toDoIndex]?.contactsInTask[contactIndex];
+    if (!contact) return ""; // Rückgabe eines leeren Strings, falls kein Kontakt vorhanden ist
     return /*html*/`
     <div class="big-card-contact">
         ${contactCircleHTML(contact, false)}

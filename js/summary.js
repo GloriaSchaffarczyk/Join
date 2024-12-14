@@ -2,9 +2,9 @@
  * Initializes the summary page.
  */
 async function initSummary() {
-  console.log("Initializing Summary...");
+  // console.log("Initializing Summary...");
   await includeHTML(); // Templates laden
-  console.log("Templates included. Proceeding with initialization...");
+  // console.log("Templates included. Proceeding with initialization...");
   
   greet(); // Benutzer begrüßen
   await loadTasksOnline(); // Aufgaben laden
@@ -13,7 +13,7 @@ async function initSummary() {
   const urgentAndDeadlineInfo = getUrgentAndUpcomingDeadline();
   updateUrgentAndUpcomingDeadline(urgentAndDeadlineInfo);
 
-  console.log("Summary initialized.");
+  // console.log("Summary initialized.");
 }
 
 /**
