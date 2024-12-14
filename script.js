@@ -108,48 +108,45 @@ function addUrlVariable(id) {
 function setNavBarLinks() {
     console.log('Setting navbar links...');
     try {
-        let summaryLink, boardLink, addTaskLink, contactsLink, legalNoticeLink, helpLink;
+        // IDs der Links für Desktop- und Mobile-Ansicht definieren
+        const desktopLinks = {
+            summary: "summaryHTML",
+            board: "boardHTML",
+            addTask: "addTaskHTML",
+            contacts: "contactsHTML",
+            legalNotice: "legalNoticeHTML",
+            help: "helpHTML"
+        };
 
-        // Unterscheidung zwischen Desktop- und Mobile-Ansicht
-        if (window.innerWidth > 999) {
-            summaryLink = document.getElementById("summaryHTML");
-            boardLink = document.getElementById("boardHTML");
-            addTaskLink = document.getElementById("addTaskHTML");
-            contactsLink = document.getElementById("contactsHTML");
-            legalNoticeLink = document.getElementById("legalNoticeHTML");
-            helpLink = document.getElementById("helpHTML");
-        } else {
-            summaryLink = document.getElementById("summaryHTML_mobile");
-            boardLink = document.getElementById("boardHTML_mobile");
-            addTaskLink = document.getElementById("addTaskHTML_mobile");
-            contactsLink = document.getElementById("contactsHTML_mobile");
-        }
+        const mobileLinks = {
+            summary: "summaryHTML_mobile",
+            board: "boardHTML_mobile",
+            addTask: "addTaskHTML_mobile",
+            contacts: "contactsHTML_mobile"
+        };
 
-        // Überprüfen, ob die Links existieren, bevor wir sie setzen
-        if (summaryLink) {
-            summaryLink.href = `summary.html?user=${userFromURL()}`;
-            console.log(`Summary link set to: ${summaryLink.href}`);
-        }
-        if (boardLink) {
-            boardLink.href = `board.html?user=${userFromURL()}`;
-            console.log(`Board link set to: ${boardLink.href}`);
-        }
-        if (addTaskLink) {
-            addTaskLink.href = `add_task.html?user=${userFromURL()}`;
-            console.log(`Add Task link set to: ${addTaskLink.href}`);
-        }
-        if (contactsLink) {
-            contactsLink.href = `contacts.html?user=${userFromURL()}`;
-            console.log(`Contacts link set to: ${contactsLink.href}`);
-        }
-        if (legalNoticeLink) {
-            legalNoticeLink.href = `legal_notice.html?user=${userFromURL()}`;
-            console.log(`Legal Notice link set to: ${legalNoticeLink.href}`);
-        }
-        if (helpLink) {
-            helpLink.href = `help.html?user=${userFromURL()}`;
-            console.log(`Help link set to: ${helpLink.href}`);
-        }
+        // Dateinamen für die Links (korrekte Schreibweise der HTML-Dateien)
+        const pageFiles = {
+            summary: "summary.html",
+            board: "board.html",
+            addTask: "add_task.html", // korrigierter Dateiname
+            contacts: "contacts.html",
+            legalNotice: "legal_notice.html",
+            help: "help.html"
+        };
+
+        // Wähle je nach Fensterbreite die richtigen IDs aus
+        const links = window.innerWidth > 999 ? desktopLinks : mobileLinks;
+
+        // Dynamisch die Links setzen, wenn sie existieren
+        Object.keys(links).forEach((key) => {
+            const linkElement = document.getElementById(links[key]);
+            if (linkElement) {
+                // Dynamisch den richtigen Dateinamen und User-Parameter setzen
+                linkElement.href = `${pageFiles[key]}?user=${userFromURL()}`;
+                console.log(`${key.charAt(0).toUpperCase() + key.slice(1)} link set to: ${linkElement.href}`);
+            }
+        });
 
         console.log("Navbar links successfully updated.");
     } catch (error) {
@@ -157,6 +154,14 @@ function setNavBarLinks() {
     }
 }
 
+// Event Listener für Fenstergrößenänderungen
+window.addEventListener('resize', () => {
+    console.log('Window resized, updating navbar links...');
+    setNavBarLinks();
+});
+
+// Initialer Aufruf, um die Links beim ersten Laden zu setzen
+setNavBarLinks();
 
 /**
  * Opens the "add_task.html" page without specifying a contact to add.
