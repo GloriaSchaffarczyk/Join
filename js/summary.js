@@ -2,15 +2,18 @@
  * Initializes the summary page.
  */
 async function initSummary() {
-  await includeHTML();
-  greet();
-  await loadTasksOnline();
-  const taskCounts = getTaskCounts();
-  updateTaskCounts(taskCounts);
+  console.log("Initializing Summary...");
+  await includeHTML(); // Templates laden
+  console.log("Templates included. Proceeding with initialization...");
+  
+  greet(); // Benutzer begrüßen
+  await loadTasksOnline(); // Aufgaben laden
+  const taskCounts = getTaskCounts(); // Aufgabenanzahl berechnen
+  updateTaskCounts(taskCounts); // Aufgabenanzahl im UI aktualisieren
   const urgentAndDeadlineInfo = getUrgentAndUpcomingDeadline();
   updateUrgentAndUpcomingDeadline(urgentAndDeadlineInfo);
-  userFromURL();
-  setTimeout(setNavBarLinks(), 200);
+
+  console.log("Summary initialized.");
 }
 
 /**

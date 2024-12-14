@@ -2,17 +2,29 @@
  * This function will load templates to your html
  */
 async function includeHTML() {
+    console.log("Loading templates...");
     let includeElements = document.querySelectorAll('[w3-include-html]');
     for (let i = 0; i < includeElements.length; i++) {
         const element = includeElements[i];
-        file = element.getAttribute("w3-include-html"); // "includes/header.html"
-        let resp = await fetch(file);
-        if (resp.ok) {
-            element.innerHTML = await resp.text();
-        } else {
-            element.innerHTML = 'Page not found';
+        const file = element.getAttribute("w3-include-html"); // z. B. "templates/header.html"
+        try {
+            let resp = await fetch(file);
+            if (resp.ok) {
+                element.innerHTML = await resp.text();
+                console.log(`Loaded template: ${file}`);
+            } else {
+                element.innerHTML = 'Page not found';
+                console.error(`Template not found: ${file}`);
+            }
+        } catch (error) {
+            element.innerHTML = 'Error loading template';
+            console.error(`Error fetching template: ${file}`, error);
         }
     }
+
+    console.log("Templates loaded. Updating navbar links...");
+    setNavBarLinks(); // Navbar-Links aktualisieren, nachdem alle Templates geladen sind
+    console.log("Navbar links updated.");
 }
 
 /**
@@ -94,37 +106,57 @@ function addUrlVariable(id) {
  * @returns {void}
  */
 function setNavBarLinks() {
-    let summaryLink;
-    let boardLink;
-    let addTaskLink;
-    let contactsLink;
-    let legalNoticeLink;
-    let helpLink;
+    console.log('Setting navbar links...');
+    try {
+        let summaryLink, boardLink, addTaskLink, contactsLink, legalNoticeLink, helpLink;
 
-    if (window.innerWidth > 999) {
-        summaryLink = document.getElementById("summaryHTML");
-        boardLink = document.getElementById("boardHTML");
-        addTaskLink = document.getElementById("addTaskHTML");
-        contactsLink = document.getElementById("contactsHTML");
-        legalNoticeLink = document.getElementById("legalNoticeHTML");
-        helpLink = document.getElementById("helpHTML")
+        // Unterscheidung zwischen Desktop- und Mobile-Ansicht
+        if (window.innerWidth > 999) {
+            summaryLink = document.getElementById("summaryHTML");
+            boardLink = document.getElementById("boardHTML");
+            addTaskLink = document.getElementById("addTaskHTML");
+            contactsLink = document.getElementById("contactsHTML");
+            legalNoticeLink = document.getElementById("legalNoticeHTML");
+            helpLink = document.getElementById("helpHTML");
+        } else {
+            summaryLink = document.getElementById("summaryHTML_mobile");
+            boardLink = document.getElementById("boardHTML_mobile");
+            addTaskLink = document.getElementById("addTaskHTML_mobile");
+            contactsLink = document.getElementById("contactsHTML_mobile");
+        }
+
+        // Überprüfen, ob die Links existieren, bevor wir sie setzen
+        if (summaryLink) {
+            summaryLink.href = `summary.html?user=${userFromURL()}`;
+            console.log(`Summary link set to: ${summaryLink.href}`);
+        }
+        if (boardLink) {
+            boardLink.href = `board.html?user=${userFromURL()}`;
+            console.log(`Board link set to: ${boardLink.href}`);
+        }
+        if (addTaskLink) {
+            addTaskLink.href = `add_task.html?user=${userFromURL()}`;
+            console.log(`Add Task link set to: ${addTaskLink.href}`);
+        }
+        if (contactsLink) {
+            contactsLink.href = `contacts.html?user=${userFromURL()}`;
+            console.log(`Contacts link set to: ${contactsLink.href}`);
+        }
+        if (legalNoticeLink) {
+            legalNoticeLink.href = `legal_notice.html?user=${userFromURL()}`;
+            console.log(`Legal Notice link set to: ${legalNoticeLink.href}`);
+        }
+        if (helpLink) {
+            helpLink.href = `help.html?user=${userFromURL()}`;
+            console.log(`Help link set to: ${helpLink.href}`);
+        }
+
+        console.log("Navbar links successfully updated.");
+    } catch (error) {
+        console.error("Error in setNavBarLinks:", error);
     }
-    else {
-        summaryLink = document.getElementById("summaryHTML_mobile");
-        boardLink = document.getElementById("boardHTML_mobile");
-        addTaskLink = document.getElementById("addTaskHTML_mobile");
-        contactsLink = document.getElementById("contactsHTML_mobile");
-    }
-
-    summaryLink.href = openSummaryLink();
-    boardLink.href = openBoardLink();
-    addTaskLink.href = addTaskSiteWithoutContactLink();
-    contactsLink.href = openContactLink();
-    if (legalNoticeLink) legalNoticeLink.href = openLegalNoticeLink();
-    if (helpLink) helpLink.href = openHelpLink();
-
-    document.addEventListener('DOMContentLoaded', setNavBarLinks);
 }
+
 
 /**
  * Opens the "add_task.html" page without specifying a contact to add.

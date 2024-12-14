@@ -11,7 +11,7 @@ let currentChoosenCategoryToEdit = document.getElementById("category_edit_0");
  * Initializes the add task site.
  */
 async function initializeAddTaskSite() {
-    includeHTML();
+    await includeHTML();
     await loadContacts();
     await addContactForEveryUser();
     updateAddTaskMemberSelection("addTaskSite");
@@ -537,7 +537,7 @@ function getTodayAsDateString() {
  */
 async function initializeEditTaskSite() {
     let toDoIndex = getToDoFromURL();
-    includeHTML();
+    await includeHTML();
     await loadTasksOnline();
     await loadContacts();
     await addContactForEveryUser();

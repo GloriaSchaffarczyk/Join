@@ -49,7 +49,7 @@ let currentlyDraggedCardIndex = null;
  * Initializes the board by including HTML, loading contacts, adding a contact for every user, and rendering todos.
  */
 async function initializeBoard() {
-    includeHTML();
+    await includeHTML();
     await loadContacts();
     await addContactForEveryUser();
     renderToDos();
@@ -65,7 +65,7 @@ async function initializeBoard() {
  */
 async function initializeBigCardMobile() {
     await loadTasksOnline();
-    includeHTML();
+    await includeHTML();
     await loadContacts();
     await addContactForEveryUser();
     userFromURL();;

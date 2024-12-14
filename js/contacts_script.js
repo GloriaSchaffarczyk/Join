@@ -71,7 +71,7 @@ async function addContactForEveryUser() {
  * @returns {Promise<void>} A promise that resolves once the initialization is complete.
  */
 async function initializeContact() {
-    includeHTML();
+    await includeHTML();
     await loadContacts();
     await addContactForEveryUser();
     renderContactsList();
