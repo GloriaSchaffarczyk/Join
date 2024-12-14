@@ -2,7 +2,6 @@
  * This function will load templates to your html
  */
 async function includeHTML() {
-    // console.log("Loading templates...");
     let includeElements = document.querySelectorAll('[w3-include-html]');
     for (let i = 0; i < includeElements.length; i++) {
         const element = includeElements[i];
@@ -11,7 +10,6 @@ async function includeHTML() {
             let resp = await fetch(file);
             if (resp.ok) {
                 element.innerHTML = await resp.text();
-                // console.log(`Loaded template: ${file}`);
             } else {
                 element.innerHTML = 'Page not found';
                 console.error(`Template not found: ${file}`);
@@ -22,9 +20,7 @@ async function includeHTML() {
         }
     }
 
-    // console.log("Templates loaded. Updating navbar links...");
-    setNavBarLinks(); // Navbar-Links aktualisieren, nachdem alle Templates geladen sind
-    // console.log("Navbar links updated.");
+    setNavBarLinks(); 
 }
 
 /**
@@ -75,12 +71,7 @@ function getCurrentUserVariable() {
 function userFromURL() {
     return getCurrentUserVariable() || 'guest';
 }
-// function userFromURL() {
-//     let currentUser = getCurrentUserVariable();
-//     return currentUser;
-// }
 
-// neu vom 13-12-2024
 function navigateToPage(page) {
     const user = userFromURL();
     window.location.href = `${page}.html?user=${user}`;
@@ -106,9 +97,7 @@ function addUrlVariable(id) {
  * @returns {void}
  */
 function setNavBarLinks() {
-    // console.log('Setting navbar links...');
     try {
-        // IDs der Links für Desktop- und Mobile-Ansicht definieren
         const desktopLinks = {
             summary: "summaryHTML",
             board: "boardHTML",
@@ -125,42 +114,33 @@ function setNavBarLinks() {
             contacts: "contactsHTML_mobile"
         };
 
-        // Dateinamen für die Links (korrekte Schreibweise der HTML-Dateien)
         const pageFiles = {
             summary: "summary.html",
             board: "board.html",
-            addTask: "add_task.html", // korrigierter Dateiname
+            addTask: "add_task.html",
             contacts: "contacts.html",
             legalNotice: "legal_notice.html",
             help: "help.html"
         };
 
-        // Wähle je nach Fensterbreite die richtigen IDs aus
         const links = window.innerWidth > 999 ? desktopLinks : mobileLinks;
 
-        // Dynamisch die Links setzen, wenn sie existieren
         Object.keys(links).forEach((key) => {
             const linkElement = document.getElementById(links[key]);
             if (linkElement) {
-                // Dynamisch den richtigen Dateinamen und User-Parameter setzen
                 linkElement.href = `${pageFiles[key]}?user=${userFromURL()}`;
-                // console.log(`${key.charAt(0).toUpperCase() + key.slice(1)} link set to: ${linkElement.href}`);
             }
         });
 
-        // console.log("Navbar links successfully updated.");
     } catch (error) {
         console.error("Error in setNavBarLinks:", error);
     }
 }
 
-// Event Listener für Fenstergrößenänderungen
 window.addEventListener('resize', () => {
-    // console.log('Window resized, updating navbar links...');
     setNavBarLinks();
 });
 
-// Initialer Aufruf, um die Links beim ersten Laden zu setzen
 setNavBarLinks();
 
 /**

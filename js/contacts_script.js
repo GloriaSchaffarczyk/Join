@@ -56,13 +56,11 @@ function ensureDummyContacts() {
  * @returns {string[]} An array containing the first name and last name.
  */
 function firstAndLastNameAsArray(fullName) {
-    const names = fullName.trim().split(" ").filter(Boolean); // Entfernt Leerzeichen und leere Strings
+    const names = fullName.trim().split(" ").filter(Boolean); 
     if (names.length === 1) {
-        // Wenn nur ein Name vorhanden ist, wird er als Vorname gesetzt, Nachname bleibt leer
         return [names[0], ""];
     }
-    // Wenn mehrere Namen vorhanden sind, wird der erste als Vorname und der letzte als Nachname gesetzt
-    return [names[0], names.slice(1).join(" ")]; // Alle restlichen Namen als Nachname zusammenfügen
+    return [names[0], names.slice(1).join(" ")]; 
 }
 
 /**
@@ -106,12 +104,12 @@ async function addContactForEveryUser() {
                 color: getRandomColor(),
                 initials: getInitials(fullNameAsArray[0], fullNameAsArray[1]),
                 email: user.email,
-                phone: "N/A", // Telefonnummer ist nicht vorhanden
+                phone: "N/A",
             };
             contacts.push(contact);
         }
     }
-    await setItem('contacts', JSON.stringify(contacts)); // Speichern der Kontakte
+    await setItem('contacts', JSON.stringify(contacts));
 }
 
 /**
@@ -203,36 +201,6 @@ function renderContactsList() {
     }
 }
 
-// /**
-//  * Renders the contacts list on the left side.
-//  */
-// function renderContactsList() {
-//     let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
-//     let contactList = document.getElementById("contact-list");
-//     contactList.innerHTML = "";
-
-//     for (let i = 0; i < alphabet.length; i++) {
-//         const letter = alphabet[i];
-//         let contactsIncludingLetter = [];
-//         for (let j = 0; j < contacts.length; j++) {
-//             if (contacts[j].firstName && contacts[j].firstName[0].toLowerCase() == letter) {
-//                 contactsIncludingLetter.push(contacts[j]);
-//             }
-//         }
-
-//         let contactList = document.getElementById("contact-list");
-
-//         if (contactsIncludingLetter.length > 0) {
-//             contactList.innerHTML += contactListLetterHTML(letter.toUpperCase());
-//         }
-
-//         for (let k = 0; k < contactsIncludingLetter.length; k++) {
-//             contactList.innerHTML += contactInListHTML(contactsIncludingLetter[k]);
-//         }
-//     }
-// }
-
 /**
  * Generates the HTML for a contact list letter.
  * 
@@ -242,19 +210,6 @@ function renderContactsList() {
 function contactListLetterHTML(letter) {
     return `<div class="contact-list-letter"><span>${letter}</span></div>`;
 }
-
-// /**
-//  * Generates the HTML for a contact list letter.
-//  * 
-//  * @param {string} letter - The letter.
-//  * @returns {string} The HTML for the contact list letter.
-//  */
-// function contactListLetterHTML(letter = "no Letter") {
-//     return /*html*/`
-//     <div class="contact-list-letter">
-//     <span>${letter}</span>
-//     </div>`;
-// }
 
 /**
  * Generates the HTML for a contact in the contact list.
@@ -275,25 +230,6 @@ function contactInListHTML(contact) {
     </div>`;
 }
 
-// /**
-//  * Generates the HTML for a contact in the contact list.
-//  * 
-//  * @param {object} contact - The contact object.
-//  * @returns {string} The HTML for the contact in the contact list.
-//  */
-// function contactInListHTML(contact) {
-//     let contactIndex = contacts.indexOf(contact);
-//     return /*html*/`
-//     <div class="contact pointer" id="contactInList_${contactIndex}" onclick="renderContactBig(contacts[${contactIndex}], ${contactIndex})">
-//         ${contactCircleHTML(contact, false)}
-//         <div class="contact-details">
-//             <span class="contact-list-name">${contact.firstName} ${contact.lastName}</span>
-//             <span class="contact-list-mail pointer">${contact.email}</span>
-//         </div>
-//     </div>
-//     `;
-// }
-
 /**
  * Marks a contact as chosen by adding a specific CSS class to it.
  * 
@@ -309,25 +245,6 @@ function markChosenContact(contactIndex = 0) {
     }
     chosenContact = contactIndex;
 }
-
-// /**
-//  * Marks a contact as chosen by adding a specific CSS class to it.
-//  * It also removes the mark from the previously chosen contact.
-//  *
-//  * @param {number} [contactIndex=0] - The index of the contact that should be chosen.
-//  * The default value is 0, which corresponds to the first contact.
-//  */
-// function markChosenContact(contactIndex = 0) {
-//     let chosenContactElement = document.getElementById(`contactInList_${chosenContact}`);
-//     if (chosenContactElement) {
-//         chosenContactElement.classList.remove("contact-activated");
-//     }
-//     chosenContactElement = document.getElementById(`contactInList_${contactIndex}`);
-//     if (chosenContactElement) {
-//         chosenContactElement.classList.add("contact-activated");
-//     }
-//     chosenContact = contactIndex;
-// }
 
 /**
  * Renders the big contact view.
@@ -469,19 +386,17 @@ function openAddContactForm() {
  * @param {Event} event - The event object.
  */
 async function addNewContact(event) {
-    event.preventDefault(); // Verhindert das Standard-Absenden des Formulars
+    event.preventDefault(); 
     const name = document.getElementById('add-name').value;
     const [firstName, lastName] = firstAndLastNameAsArray(name);
     const email = document.getElementById('add-email').value;
-    const phone = document.getElementById('add-phone').value.trim() || "N/A"; // Standardwert für leere Telefonnummern
+    const phone = document.getElementById('add-phone').value.trim() || "N/A";
 
-    // Überprüfen, ob die E-Mail bereits existiert
     if (isUserInContacts(email)) {
         showNotification("A contact with this email already exists.");
         return;
     }
 
-    // Neuer Kontakt wird erstellt
     const contact = {
         firstName,
         lastName,
@@ -491,44 +406,14 @@ async function addNewContact(event) {
         phone,
     };
 
-    contacts.push(contact); // Kontakt zur Liste hinzufügen
-    await setItem('contacts', JSON.stringify(contacts)); // Speichern
-    renderContactsList(); // Liste neu rendern
-    closeOverlay(event); // Overlay schließen
-    renderContactBig(contact); // Kontaktdetails anzeigen
-    markChosenContact(contacts.length - 1); // Kontakt markieren
+    contacts.push(contact); 
+    await setItem('contacts', JSON.stringify(contacts));
+    renderContactsList(); 
+    closeOverlay(event); 
+    renderContactBig(contact); 
+    markChosenContact(contacts.length - 1); 
     showNotification("Contact successfully created");
 }
-
-// /**
-//  * Adds a new contact to the contacts array.
-//  * 
-//  * @param {Event} event - The event object.
-//  */
-// async function addNewContact(event) {
-//     event.preventDefault();
-//     const name = document.getElementById('add-name').value;
-//     const [firstName, lastName] = firstAndLastNameAsArray(name);
-//     const email = document.getElementById('add-email').value;
-//     const phone = document.getElementById('add-phone').value;
-
-//     const contact = {
-//         firstName,
-//         lastName,
-//         color: getRandomColor(),
-//         initials: getInitials(firstName, lastName),
-//         email,
-//         phone,
-//     };
-
-//     contacts.push(contact);
-//     await setItem('contacts', JSON.stringify(contacts));
-//     renderContactsList();
-//     closeOverlay(event);
-//     renderContactBig(contact);
-//     markChosenContact(contacts.length - 1);
-//     showNotification("Contact succesfully created");
-// }
 
 /**
  * Creates a notification and adds it to the body of the document.
@@ -553,7 +438,7 @@ function showNotification(message) {
  */
 function openEditContactForm(contact) {
     const contactIndex = contacts.indexOf(contact);
-    const phoneValue = contact.phone === "N/A" ? "" : contact.phone; // Leeres Feld für "N/A"
+    const phoneValue = contact.phone === "N/A" ? "" : contact.phone;
     const formHTML = `
         <div class="overlay-contacts">
             <div class="overlay-contact-form">    
@@ -609,7 +494,7 @@ async function editContact(contactIndex, event, contact) {
     const name = document.getElementById('edit-name').value;
     const [firstName, lastName] = firstAndLastNameAsArray(name);
     const email = document.getElementById('edit-email').value;
-    const phone = document.getElementById('edit-phone').value.trim() || "N/A"; // Leere Telefonnummer auf "N/A" setzen
+    const phone = document.getElementById('edit-phone').value.trim() || "N/A"; 
 
     // Kontaktinformationen aktualisieren
     contacts[contactIndex].firstName = firstName;
@@ -618,10 +503,10 @@ async function editContact(contactIndex, event, contact) {
     contacts[contactIndex].email = email;
     contacts[contactIndex].phone = phone;
 
-    await setItem('contacts', JSON.stringify(contacts)); // Aktualisierte Kontakte speichern
-    renderContactsList(); // Kontaktliste neu rendern
-    closeOverlay(event); // Overlay schließen
-    renderContactBig(contact); // Aktualisierte Kontaktinformationen anzeigen
+    await setItem('contacts', JSON.stringify(contacts)); 
+    renderContactsList(); 
+    closeOverlay(event); 
+    renderContactBig(contact); 
 }
 
 /**
@@ -634,14 +519,12 @@ async function editContact(contactIndex, event, contact) {
 async function deleteContact(contactIndex, event) {
     const contact = contacts[contactIndex];
 
-    // Überprüfen, ob der Kontakt ein registrierter Benutzer ist
     const isRegisteredUser = await isUserRegistered(contact.email);
     if (isRegisteredUser) {
         showNotification("Registered users can't be deleted.");
-        return; // Löschen abbrechen
+        return;
     }
 
-    // Kontakt löschen, wenn er kein registrierter Benutzer ist
     contacts.splice(contactIndex, 1);
     await setItem('contacts', JSON.stringify(contacts));
     renderContactsList();
@@ -668,8 +551,8 @@ async function deleteContact(contactIndex, event) {
  * @returns {Promise<boolean>} - Returns true if the user is registered, false otherwise.
  */
 async function isUserRegistered(email) {
-    await loadUsers(); // Benutzer aus der Datenbank laden
-    return users.some(user => user.email === email); // Prüfen, ob die E-Mail-Adresse in der Benutzerliste ist
+    await loadUsers();
+    return users.some(user => user.email === email);
 }
 
 /**
