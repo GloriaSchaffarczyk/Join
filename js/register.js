@@ -159,18 +159,29 @@ function rememberLogin(email, password) {
  */
 async function loginGuest() {
   await loadUsers();
+  let guestEmail = "guest@guest.com";
+  let guestPassword = "123456";
+
+  // Überprüfen, ob der Guest-Benutzer existiert
+  let guestUser = users.find(u => u.email === guestEmail);
+
+  // Falls nicht vorhanden, füge den Guest-Benutzer hinzu
+  if (!guestUser) {
+      users.push({
+          name: "Guest",
+          email: guestEmail,
+          password: guestPassword,
+      });
+      await setItem("users", JSON.stringify(users)); // Speichere die Aktualisierung
+  }
+
+  // Setze die Eingabefelder und leite weiter
   let email = document.getElementById("email-login");
   let password = document.getElementById("password-login");
-  email.value = "guest@guest.com";
-  password.value = "123456";
-  let user = users.find(u => u.email == email.value && u.password == password.value);
-  currentUser = user ? user.name : null;
-  if (user) {
-    email.value = '';
-    password.value = '';
-    window.location.href = `summary.html?user=${currentUser}`;
-  }
-  users = [];
+  email.value = guestEmail;
+  password.value = guestPassword;
+
+  window.location.href = `summary.html?user=Guest`;
 }
 
 /**
@@ -274,7 +285,7 @@ function confirmEmailBanner() {
  * @returns {Promise<Response>} - A Promise that resolves to the fetch response.
  */
 function action(formData) {
-  const input = 'https://https://join.gloriacodes.de/index.html/send_mail.php';
+  const input = 'https://join.gloriacodes.de/send_mail.php';
   const requestInit = {
     method: 'post',
     body: formData
@@ -300,8 +311,7 @@ async function onPageLoad() {
 function getEmailUrl() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const email = urlParams.get('email');
-  return email;
+  return urlParams.get("email");
 }
 
 /**
@@ -322,19 +332,34 @@ async function getPasswordResetUser() {
  */
 async function finalPasswordReset(event) {
   event.preventDefault();
+
+  // Stelle sicher, dass `email` korrekt ist
+  if (!email) {
+      email = getEmailUrl();
+  }
+
+  let user = await getPasswordResetUser();
+  if (!user) {
+      alert("User mit dieser Email wurde nicht gefunden!");
+      return;
+  }
+
   let name = user.name;
-  let password = document.getElementById("reset-password");
-  let confirmPassword = document.getElementById("reset-password2");
-  users = users.filter(u => u.email !== email);
-  if (password.value === confirmPassword.value) {
-    resettedPassword();
-    saveUser(name, password, email);
-    await setItem('users', JSON.stringify(users));
-    setTimeout(() => {
-      window.location.href = 'https://join.gloriacodes.de/index.html';
-    }, 2000);
+  let password = document.getElementById("reset-password").value;
+  let confirmPassword = document.getElementById("reset-password2").value;
+
+  if (password === confirmPassword) {
+      // Passwort speichern
+      users = users.filter(u => u.email !== email); // Alten Benutzer entfernen
+      users.push({ name, email, password }); // Aktualisierten Benutzer hinzufügen
+
+      await setItem("users", JSON.stringify(users)); // Speichere Benutzer
+      resettedPassword(); // Zeige Bestätigung
+      setTimeout(() => {
+          window.location.href = "index.html"; // Zur Login-Seite umleiten
+      }, 2000);
   } else {
-    alert('Passwort stimmt nicht überein!');
+      alert("Passwörter stimmen nicht überein!");
   }
 }
 
